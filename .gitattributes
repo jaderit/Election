@@ -1,2 +1,20 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+*Do file for Election Data
+*Author: Jade Ritterbusch
+*Date: 4/26/2018
+*Raw Data File: election.dta
+
+*Set Directory
+pwd
+cd "C:\Users\Jade\Documents\Political Science\Research and Thesis\ Election Data"
+use election.dta, clear
+
+*I made the choice to drop race, except for White Poverty, from the original data set as I was more interested in the interaction between other variables
+drop WhiteNH BlackNH NatAm Asian PacIsl Other
+drop Hispanic PerWhite PerBlack PerHisp NativeBorn ForeignBorn PerNatBrn MHI
+reg WhitePov Lessthan10thgrade thto12thgradenodiploma OnlyHSGrad SomeCollege Associatesdegree Bachelorsdegree Graduateorprofessionaldegree
+*The regression indicated a greater correlation between white poverty and lesser levels of education
+*I then appended the data with a second set consisting of US election data from counties that flipped
+append using "/Users/wildcard/Desktop/OneDrive/Documents/Poltical Science/Research and Thesis/Virginia Elections/Virginia Census Data.dta"
+drop STFIPS CntyFIPS
+reg total_votes votes_gop votes_dem
+*The first regression 
